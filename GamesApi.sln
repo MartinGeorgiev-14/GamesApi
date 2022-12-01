@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesAPI.Web", "GamesApi\GamesAPI.Web.csproj", "{15F5B57D-BEF6-4F20-8006-0E9580CCA29A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesAPI.Web", "GamesApi\GamesAPI.Web.csproj", "{15F5B57D-BEF6-4F20-8006-0E9580CCA29A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{082AFA4E-26A4-4478-8600-705345F94F7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesAPI.Services", "GamesAPI.Services\GamesAPI.Services.csproj", "{04FF18BA-6817-44C7-B3A5-1CC0B481F3BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{15F5B57D-BEF6-4F20-8006-0E9580CCA29A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15F5B57D-BEF6-4F20-8006-0E9580CCA29A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15F5B57D-BEF6-4F20-8006-0E9580CCA29A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04FF18BA-6817-44C7-B3A5-1CC0B481F3BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04FF18BA-6817-44C7-B3A5-1CC0B481F3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04FF18BA-6817-44C7-B3A5-1CC0B481F3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04FF18BA-6817-44C7-B3A5-1CC0B481F3BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{15F5B57D-BEF6-4F20-8006-0E9580CCA29A} = {082AFA4E-26A4-4478-8600-705345F94F7B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1605EFE5-190A-4CEA-93CE-F19F8ECDF319}
