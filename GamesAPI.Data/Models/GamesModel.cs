@@ -10,7 +10,7 @@ namespace GamesAPI.Data.Models
     public class GamesModel
     {
         public int Id { get; set; }
-        [Required()]
+        
         public string Name { get; set; }
         public decimal NA_Sales { get; set; }
         public decimal EU_Sales { get; set; }
