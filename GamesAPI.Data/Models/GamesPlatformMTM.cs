@@ -10,10 +10,10 @@ namespace GamesAPI.Data.Models
     {
         public int Id { get; set; }
 
-        //public int GameId { get; set; }
+       
         public GamesModel GamesModel { get; set; }
 
-        //public int PlatformId { get; set; }
+      
         public PlatformModel PlatformModel { get; set; }
     }
 }

@@ -12,6 +12,6 @@ namespace GamesAPI.Data.Models
         public string Publisher { get; set; }
 
 
-        public virtual ICollection<GamesModel> GamesModels { get; set; }
+        
     }
 }

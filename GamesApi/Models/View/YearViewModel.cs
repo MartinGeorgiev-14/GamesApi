@@ -8,6 +8,6 @@ namespace GamesAPI.Web.Models.View
         public int Year { get; set; }
 
 
-        public virtual ICollection<GamesModel> GamesModels { get; set; }
+       
     }
 }

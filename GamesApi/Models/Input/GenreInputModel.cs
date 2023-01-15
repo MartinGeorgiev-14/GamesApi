@@ -9,7 +9,6 @@ namespace GamesAPI.Web.Models.Input
         [StringLength(50, ErrorMessage = "Exceeding the limits", MinimumLength = 1)]
         public string Genre { get; set; }
 
-        [Required]
-        public virtual ICollection<GamesModel> GamesModels { get; set; }
+
     }
 }

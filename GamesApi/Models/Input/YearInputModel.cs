@@ -9,7 +9,6 @@ namespace GamesAPI.Web.Models.Input
         [Range(0, 3000, ErrorMessage = "Error")]
         public int Year { get; set; }
 
-        [Required]
-        public virtual ICollection<GamesModel> GamesModels { get; set; }
+
     }
 }

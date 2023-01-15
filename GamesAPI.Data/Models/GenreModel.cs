@@ -11,9 +11,6 @@ namespace GamesAPI.Data.Models
         public int Id { get; set; }
         public string Genre { get; set; }
 
-        public virtual ICollection<GamesModel> GamesModels { get; set; }
 
-        //public GamesModel GamesModel { get; set; }
-        //public int GamesModelId { get; set; }
     }
 }
