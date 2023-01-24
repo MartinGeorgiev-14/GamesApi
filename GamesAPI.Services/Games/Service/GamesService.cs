@@ -59,7 +59,7 @@ namespace GamesAPI.Services.Games.Service
             dbContext.SaveChanges();
         }
 
-        public T? GetGames<T>(int id)
+        public T? Get<T>(int id)
         {
             var game = dbContext.GamesModels.Where(x => x.Id == id)
                 .ProjectTo<T>(mapper.ConfigurationProvider)
@@ -67,16 +67,6 @@ namespace GamesAPI.Services.Games.Service
 
 
             return game;
-        }
-
-
-        public IEnumerable<T> GetPage<T>(int page, int perPage)
-        {
-            return dbContext.GamesModels
-                .Skip((page - 1) * perPage)
-                .Take(perPage)
-                .ProjectTo<T>(mapper.ConfigurationProvider)
-                .ToArray();
         }
 
         public async Task<bool> ExistsAsync(int id)

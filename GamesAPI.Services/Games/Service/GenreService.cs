@@ -55,7 +55,7 @@ namespace GamesAPI.Services.Games.Service
             dbContext.SaveChanges();
         }
 
-        public T? GetGenres<T>(int id)
+        public T? Get<T>(int id)
         {
             var genre = dbContext.GenreModels.Where(x => x.Id == id)
                 .ProjectTo<T>(mapper.ConfigurationProvider)
@@ -67,7 +67,7 @@ namespace GamesAPI.Services.Games.Service
 
         public async Task<bool> ExistsAsync(int id)
         {
-            return await dbContext.GamesModels.AnyAsync(x => x.Id == id);
+            return await dbContext.GenreModels.AnyAsync(x => x.Id == id);
         }
 
 

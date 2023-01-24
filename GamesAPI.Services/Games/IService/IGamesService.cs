@@ -11,9 +11,7 @@ namespace GamesAPI.Services.Games.IService
     {
         Task<bool> ExistsAsync(int id);
 
-        T? GetGames<T>(int id);
-
-        IEnumerable<T> GetPage<T>(int page, int perPage);
+        T? Get<T>(int id);
 
         int Create<T>(T model);
 

@@ -8,20 +8,20 @@ namespace GamesAPI.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenreController : ControllerBase
+    public class YearsController : ControllerBase
     {
-       private readonly IGenreService genreService;
+        private readonly IYearService yearService;
 
-       public GenreController(IGenreService genreService)
+        public YearsController(IYearService yearService)
         {
-            this.genreService = genreService;   
+            this.yearService = yearService;
         }
 
         [HttpGet("{id}")]
 
-        public IActionResult GetId([FromRoute] int id)
+        public IActionResult Get([FromRoute] int id)
         {
-            var model = this.genreService.Get<GenreViewModel>(id);
+            var model = this.yearService.Get<YearViewModel>(id);
 
 
             if (model == null)
@@ -34,24 +34,24 @@ namespace GamesAPI.Web.Controllers
 
         [HttpPost]
 
-        public IActionResult Create(GenreInputModel model)
+        public IActionResult Create(YearInputModel model)
         {
-            var id = this.genreService.Create(model);
+            var id = this.yearService.Create(model);
             return this.Ok("id = " + id);
         }
 
         [HttpPut("{id}")]
 
-        public IActionResult Update(int id, GenreInputModel model)
+        public IActionResult Update(int id, YearInputModel model)
         {
-            bool exists = this.genreService.ExistsAsync(id).Result;
+            bool exists = this.yearService.ExistsAsync(id).Result;
 
             if (!exists)
             {
                 return this.NotFound();
             }
 
-            this.genreService.Update(id, model);
+            this.yearService.Update(id, model);
 
             return this.Ok();
         }
@@ -60,17 +60,16 @@ namespace GamesAPI.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            bool exist = this.genreService.ExistsAsync(id).Result;
+            bool exist = this.yearService.ExistsAsync(id).Result;
 
             if (!exist)
             {
                 return this.NotFound();
             }
 
-            await this.genreService.Delete(id);
+            await this.yearService.Delete(id);
 
             return this.Ok();
         }
-
     }
 }

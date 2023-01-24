@@ -8,20 +8,20 @@ namespace GamesAPI.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenreController : ControllerBase
+    public class PublishersController : ControllerBase
     {
-       private readonly IGenreService genreService;
+        private readonly IPublisherService publisherService;
 
-       public GenreController(IGenreService genreService)
+        public PublishersController(IPublisherService publisherService)
         {
-            this.genreService = genreService;   
+            this.publisherService = publisherService;
         }
 
         [HttpGet("{id}")]
 
-        public IActionResult GetId([FromRoute] int id)
+        public IActionResult Get([FromRoute] int id)
         {
-            var model = this.genreService.Get<GenreViewModel>(id);
+            var model = this.publisherService.Get<PublisherViewModel>(id);
 
 
             if (model == null)
@@ -34,24 +34,24 @@ namespace GamesAPI.Web.Controllers
 
         [HttpPost]
 
-        public IActionResult Create(GenreInputModel model)
+        public IActionResult Create(PublisherInputModel model)
         {
-            var id = this.genreService.Create(model);
+            var id = this.publisherService.Create(model);
             return this.Ok("id = " + id);
         }
 
         [HttpPut("{id}")]
 
-        public IActionResult Update(int id, GenreInputModel model)
+        public IActionResult Update(int id, PublisherInputModel model)
         {
-            bool exists = this.genreService.ExistsAsync(id).Result;
+            bool exists = this.publisherService.ExistsAsync(id).Result;
 
             if (!exists)
             {
                 return this.NotFound();
             }
 
-            this.genreService.Update(id, model);
+            this.publisherService.Update(id, model);
 
             return this.Ok();
         }
@@ -60,17 +60,16 @@ namespace GamesAPI.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            bool exist = this.genreService.ExistsAsync(id).Result;
+            bool exist = this.publisherService.ExistsAsync(id).Result;
 
             if (!exist)
             {
                 return this.NotFound();
             }
 
-            await this.genreService.Delete(id);
+            await this.publisherService.Delete(id);
 
             return this.Ok();
         }
-
     }
 }

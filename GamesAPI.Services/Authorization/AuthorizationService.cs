@@ -13,7 +13,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace GamesAPI.Services.Authorization
 {
-    public class AuthorizationService: IAuthorizationService
+    public class AuthorizationService : IAuthorizationService
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IConfiguration configuration;
@@ -24,16 +24,16 @@ namespace GamesAPI.Services.Authorization
             this.configuration = configuration;
         }
 
-        public async Task<IdentityResult> RegisterUserAsync(string username, string password)
+        public async Task<IdentityResult?> RegisterUserAsync(string username, string password)
         {
             var user = new ApplicationUser
             {
                 UserName = username,
             };
 
-            var result = await userManager.CreateAsync(user, password);
+            var result = await this.userManager.CreateAsync(user, password);
 
-            if (result.Succeeded) 
+            if (!result.Succeeded)
             {
                 return result;
             }
@@ -43,7 +43,7 @@ namespace GamesAPI.Services.Authorization
             return result;
         }
 
-        public async Task<string> LoginAsync(string username, string password)
+        public async Task<string?> LoginAsync(string username, string password)
         {
             var user = await this.userManager.FindByNameAsync(username);
 
@@ -53,15 +53,15 @@ namespace GamesAPI.Services.Authorization
             }
 
             var role = await this.userManager.GetRolesAsync(user);
-            IdentityOptions option = new IdentityOptions();
+            IdentityOptions options = new IdentityOptions();
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim("UserID", user.Id.ToString()),
-                    new Claim("UserName", user.UserName!),
-                    new Claim(option.ClaimsIdentity.RoleClaimType, role.FirstOrDefault()!)
+                        new Claim("UserID", user.Id.ToString()),
+                        new Claim("UserName", user.UserName!),
+                        new Claim(options.ClaimsIdentity.RoleClaimType, role.FirstOrDefault()!)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["JWTSecret"])), SecurityAlgorithms.HmacSha256Signature)

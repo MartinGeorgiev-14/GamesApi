@@ -9,8 +9,8 @@ namespace GamesAPI.Services.Authorization
 {
     public interface IAuthorizationService
     {
-        Task<IdentityResult> RegisterUserAsync(string username, string password);
+        Task<IdentityResult?> RegisterUserAsync(string username, string password);
 
-        Task<string> LoginAsync(string username, string password);
+        Task<string?> LoginAsync(string username, string password);
     }
 }

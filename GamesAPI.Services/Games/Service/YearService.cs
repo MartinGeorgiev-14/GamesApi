@@ -57,7 +57,7 @@ namespace GamesAPI.Services.Games.Service
             dbContext.SaveChanges();
         }
 
-        public T? GetYear<T>(int id)
+        public T? Get<T>(int id)
         {
             var game = dbContext.YearModels.Where(x => x.Id == id)
                 .ProjectTo<T>(mapper.ConfigurationProvider)

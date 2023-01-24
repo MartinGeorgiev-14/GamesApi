@@ -10,7 +10,7 @@ namespace GamesAPI.Services.Games.IService
     {
         Task<bool> ExistsAsync(int id);
 
-        T? GetGenres<T>(int id);
+        T? Get<T>(int id);
 
         int Create<T>(T model);
 

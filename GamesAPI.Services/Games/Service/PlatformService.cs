@@ -57,7 +57,7 @@ namespace GamesAPI.Services.Games.Service
             dbContext.SaveChanges();
         }
 
-        public T? GetPlatform<T>(int id)
+        public T? Get<T>(int id)
         {
             var game = dbContext.PlatformModels.Where(x => x.Id == id)
                 .ProjectTo<T>(mapper.ConfigurationProvider)

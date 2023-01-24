@@ -12,8 +12,8 @@ namespace GamesAPI.Web
             this.CreateMap<GamesModel, GamesViewModel>();
             this.CreateMap<GamesInputModel, GamesModel>();
 
-            this.CreateMap<GamesPlatformMTM, GamesPlatformMtmViewModel>();
-            this.CreateMap<GamesPlatformMtmInputModel, GamesPlatformMTM>();
+            this.CreateMap<GamesModel, GenreViewModel>();
+            this.CreateMap<GenreInputModel, GamesModel>();
 
             this.CreateMap<GenreModel, GenreViewModel>();
             this.CreateMap<GenreInputModel, GenreModel>();

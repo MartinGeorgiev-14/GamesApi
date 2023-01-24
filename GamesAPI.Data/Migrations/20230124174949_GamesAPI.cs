@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GamesAPI.Data.Migrations
 {
-    public partial class GamesAPIProject : Migration
+    public partial class GamesAPI : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -213,13 +213,13 @@ namespace GamesAPI.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NA_Sales = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    EU_Sales = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    JP_Sales = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Other_Sales = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     YearId = table.Column<int>(type: "int", nullable: false),
                     GenreModelId = table.Column<int>(type: "int", nullable: false),
-                    PublisherModelId = table.Column<int>(type: "int", nullable: false)
+                    PublisherModelId = table.Column<int>(type: "int", nullable: false),
+                    NA_Sales = table.Column<double>(type: "float", nullable: false),
+                    EU_Sales = table.Column<double>(type: "float", nullable: false),
+                    JP_Sales = table.Column<double>(type: "float", nullable: false),
+                    Other_Sales = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -240,32 +240,6 @@ namespace GamesAPI.Data.Migrations
                         name: "FK_GamesModels_YearModels_YearId",
                         column: x => x.YearId,
                         principalTable: "YearModels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GamesPlatformMTMs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GamesModelId = table.Column<int>(type: "int", nullable: false),
-                    PlatformModelId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GamesPlatformMTMs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_GamesPlatformMTMs_GamesModels_GamesModelId",
-                        column: x => x.GamesModelId,
-                        principalTable: "GamesModels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GamesPlatformMTMs_PlatformModels_PlatformModelId",
-                        column: x => x.PlatformModelId,
-                        principalTable: "PlatformModels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -323,16 +297,6 @@ namespace GamesAPI.Data.Migrations
                 name: "IX_GamesModels_YearId",
                 table: "GamesModels",
                 column: "YearId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GamesPlatformMTMs_GamesModelId",
-                table: "GamesPlatformMTMs",
-                column: "GamesModelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GamesPlatformMTMs_PlatformModelId",
-                table: "GamesPlatformMTMs",
-                column: "PlatformModelId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -353,19 +317,16 @@ namespace GamesAPI.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "GamesPlatformMTMs");
+                name: "GamesModels");
+
+            migrationBuilder.DropTable(
+                name: "PlatformModels");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "GamesModels");
-
-            migrationBuilder.DropTable(
-                name: "PlatformModels");
 
             migrationBuilder.DropTable(
                 name: "GenreModels");

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamesAPI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230123221636_GamesAPIProject")]
-    partial class GamesAPIProject
+    [Migration("20230124174949_GamesAPI")]
+    partial class GamesAPI
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,24 +32,24 @@ namespace GamesAPI.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal>("EU_Sales")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("EU_Sales")
+                        .HasColumnType("float");
 
                     b.Property<int>("GenreModelId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("JP_Sales")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("JP_Sales")
+                        .HasColumnType("float");
 
-                    b.Property<decimal>("NA_Sales")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("NA_Sales")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Other_Sales")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Other_Sales")
+                        .HasColumnType("float");
 
                     b.Property<int>("PublisherModelId")
                         .HasColumnType("int");
@@ -66,29 +66,6 @@ namespace GamesAPI.Data.Migrations
                     b.HasIndex("YearId");
 
                     b.ToTable("GamesModels");
-                });
-
-            modelBuilder.Entity("GamesAPI.Data.Models.GamesPlatformMTM", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("GamesModelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlatformModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GamesModelId");
-
-                    b.HasIndex("PlatformModelId");
-
-                    b.ToTable("GamesPlatformMTMs");
                 });
 
             modelBuilder.Entity("GamesAPI.Data.Models.GenreModel", b =>
@@ -380,25 +357,6 @@ namespace GamesAPI.Data.Migrations
                     b.Navigation("PublisherModel");
 
                     b.Navigation("Year");
-                });
-
-            modelBuilder.Entity("GamesAPI.Data.Models.GamesPlatformMTM", b =>
-                {
-                    b.HasOne("GamesAPI.Data.Models.GamesModel", "GamesModel")
-                        .WithMany()
-                        .HasForeignKey("GamesModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GamesAPI.Data.Models.PlatformModel", "PlatformModel")
-                        .WithMany()
-                        .HasForeignKey("PlatformModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GamesModel");
-
-                    b.Navigation("PlatformModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

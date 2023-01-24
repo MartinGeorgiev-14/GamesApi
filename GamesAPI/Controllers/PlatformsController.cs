@@ -8,20 +8,20 @@ namespace GamesAPI.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenreController : ControllerBase
+    public class PlatformsController : ControllerBase
     {
-       private readonly IGenreService genreService;
+        private readonly IPlatformService platformService;
 
-       public GenreController(IGenreService genreService)
+        public PlatformsController(IPlatformService platformService)
         {
-            this.genreService = genreService;   
+            this.platformService = platformService;
         }
 
         [HttpGet("{id}")]
 
         public IActionResult GetId([FromRoute] int id)
         {
-            var model = this.genreService.Get<GenreViewModel>(id);
+            var model = this.platformService.Get<PlatformViewModel>(id);
 
 
             if (model == null)
@@ -34,24 +34,24 @@ namespace GamesAPI.Web.Controllers
 
         [HttpPost]
 
-        public IActionResult Create(GenreInputModel model)
+        public IActionResult Create(PlatformInputModel model)
         {
-            var id = this.genreService.Create(model);
+            var id = this.platformService.Create(model);
             return this.Ok("id = " + id);
         }
 
         [HttpPut("{id}")]
 
-        public IActionResult Update(int id, GenreInputModel model)
+        public IActionResult Update(int id, PlatformInputModel model)
         {
-            bool exists = this.genreService.ExistsAsync(id).Result;
+            bool exists = this.platformService.ExistsAsync(id).Result;
 
             if (!exists)
             {
                 return this.NotFound();
             }
 
-            this.genreService.Update(id, model);
+            this.platformService.Update(id, model);
 
             return this.Ok();
         }
@@ -60,17 +60,16 @@ namespace GamesAPI.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            bool exist = this.genreService.ExistsAsync(id).Result;
+            bool exist = this.platformService.ExistsAsync(id).Result;
 
             if (!exist)
             {
                 return this.NotFound();
             }
 
-            await this.genreService.Delete(id);
+            await this.platformService.Delete(id);
 
             return this.Ok();
         }
-
     }
 }

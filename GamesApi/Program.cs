@@ -8,6 +8,10 @@ using GamesAPI.Data.RolesModels;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using GamesAPI.Services.Authorization;
+using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,13 +52,30 @@ builder.Services
         };
     });
 
+builder.Services.AddSwaggerGen(options =>
+{
+    const string name = "Bearer token";
+
+    options.AddSecurityDefinition(name, new OpenApiSecurityScheme
+    {
+        Description = "Standard Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
+        In = ParameterLocation.Header,
+        Name = HeaderNames.Authorization,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+    });
+
+    options.OperationFilter<SecurityRequirementsOperationFilter>(true, name);
+});
+
 
 builder.Services.AddTransient<IGamesService, GamesService>();
-builder.Services.AddTransient<IGamesPlatformMTMService, GamesPlatformMTMService>();
 builder.Services.AddTransient<IGenreService, GenreService>();
 builder.Services.AddTransient<IPlatformService, PlatformService>();
 builder.Services.AddTransient<IPublisherService, PublisherService>();
 builder.Services.AddTransient<IYearService, YearService>();
+builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
