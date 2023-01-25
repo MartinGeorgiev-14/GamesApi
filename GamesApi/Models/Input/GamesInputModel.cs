@@ -11,13 +11,13 @@ namespace GamesAPI.Web.Models.Input
         [StringLength(50,ErrorMessage = "Exceeding the limits", MinimumLength = 1)]
         public string Name { get; set; }
 
-        [Required]
-        public virtual YearModel Year { get; set; }
+        public int Year { get; set; }
         [Required]
         public virtual GenreModel GenreModel { get; set; }
         [Required]
         public virtual PublisherModel PublisherModel { get; set; }
-
+        [Required]
+        public virtual PlatformModel PlatformModel { get; set; }    
         [Required]
         [Range(0, 100, ErrorMessage = "Exceeding the limits")]
         public double NA_Sales { get; set; }

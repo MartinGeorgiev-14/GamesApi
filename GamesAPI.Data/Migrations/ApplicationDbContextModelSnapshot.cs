@@ -49,19 +49,22 @@ namespace GamesAPI.Data.Migrations
                     b.Property<double>("Other_Sales")
                         .HasColumnType("float");
 
+                    b.Property<int>("PlatformModelId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PublisherModelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("YearId")
+                    b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GenreModelId");
 
-                    b.HasIndex("PublisherModelId");
+                    b.HasIndex("PlatformModelId");
 
-                    b.HasIndex("YearId");
+                    b.HasIndex("PublisherModelId");
 
                     b.ToTable("GamesModels");
                 });
@@ -115,22 +118,6 @@ namespace GamesAPI.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PublisherModels");
-                });
-
-            modelBuilder.Entity("GamesAPI.Data.Models.YearModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("YearModels");
                 });
 
             modelBuilder.Entity("GamesAPI.Data.RolesModels.ApplicationRole", b =>
@@ -338,23 +325,23 @@ namespace GamesAPI.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GamesAPI.Data.Models.PlatformModel", "PlatformModel")
+                        .WithMany()
+                        .HasForeignKey("PlatformModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("GamesAPI.Data.Models.PublisherModel", "PublisherModel")
                         .WithMany()
                         .HasForeignKey("PublisherModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GamesAPI.Data.Models.YearModel", "Year")
-                        .WithMany()
-                        .HasForeignKey("YearId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("GenreModel");
 
-                    b.Navigation("PublisherModel");
+                    b.Navigation("PlatformModel");
 
-                    b.Navigation("Year");
+                    b.Navigation("PublisherModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

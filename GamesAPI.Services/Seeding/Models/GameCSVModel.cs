@@ -1,29 +1,24 @@
-﻿using System;
+﻿using CsvHelper.Configuration.Attributes;
+using GamesAPI.Data.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GamesAPI.Data.Models
+namespace GamesAPI.Services.Models
 {
-    public class GamesModel
+    public class GameCSVModel
     {
-        public int Id { get; set; }
         
         public string Name { get; set; }
-
         public int Year { get; set; }
-        public virtual GenreModel GenreModel { get; set; }
-        public virtual PublisherModel PublisherModel { get; set; }
-        public virtual PlatformModel PlatformModel { get; set; }
+        public string Genre { get; set; }
+        public string Platform { get; set; }
+        public string Publisher { get; set; }
         public double NA_Sales { get; set; }
         public double EU_Sales { get; set; }
         public double JP_Sales { get; set; }
         public double Other_Sales { get; set; }
-
-
-
-   
     }
 }

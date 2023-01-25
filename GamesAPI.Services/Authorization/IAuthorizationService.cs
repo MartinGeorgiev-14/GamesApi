@@ -11,6 +11,8 @@ namespace GamesAPI.Services.Authorization
     {
         Task<IdentityResult?> RegisterUserAsync(string username, string password);
 
+        Task<IdentityResult?> RegisterAdminAsync(string username, string password);
+
         Task<string?> LoginAsync(string username, string password);
     }
 }

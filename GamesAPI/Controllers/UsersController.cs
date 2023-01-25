@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GamesAPI.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -23,6 +23,15 @@ namespace GamesAPI.Web.Controllers
             var registerResult = await this.authorizationService.RegisterUserAsync(model.UserName, model.Password);
 
             return this.Ok(registerResult);
+        }
+
+        [HttpPost]
+        [Route("RegisterAdmin")]
+        public async Task<IActionResult> RegisterAdmin(RegisterUserModel model)
+        {
+            var registeredResult = await this.authorizationService.RegisterAdminAsync(model.UserName, model.Password);
+
+            return this.Ok(registeredResult);
         }
 
         [HttpPost]

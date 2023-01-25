@@ -24,8 +24,7 @@ namespace GamesAPI.Web
             this.CreateMap<PublisherModel, PublisherViewModel>();
             this.CreateMap<PublisherInputModel, PublisherModel>();
 
-            this.CreateMap<YearModel, YearViewModel>();
-            this.CreateMap<YearInputModel, YearModel>();
+
         }
     }
 }

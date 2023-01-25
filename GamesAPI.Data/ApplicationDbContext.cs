@@ -16,7 +16,8 @@ namespace GamesAPI.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
 
-        public ApplicationDbContext(DbContextOptions options) : base(options) 
+        public ApplicationDbContext(DbContextOptions options) 
+            : base(options) 
         {
 
         }
@@ -25,6 +26,6 @@ namespace GamesAPI.Data
         public DbSet<PlatformModel> PlatformModels { get; set; }
         public DbSet<GenreModel> GenreModels { get; set; }
         public DbSet<PublisherModel> PublisherModels { get; set; }
-        public DbSet<YearModel> YearModels { get; set; }
+      
     }
 }

@@ -1,6 +1,8 @@
-﻿using GamesAPI.Services.Games.IService;
+﻿using GamesApi.Common;
+using GamesAPI.Services.Games.IService;
 using GamesAPI.Web.Models.Input;
 using GamesAPI.Web.Models.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices;
@@ -35,7 +37,7 @@ namespace GamesAPI.Web.Controllers
         }
 
         [HttpPost("Game")]
-
+        [Authorize(Roles = ApplicationRoles.Admin)]
         public IActionResult Create(GamesInputModel model)
         {
             var id = this.gamesService.Create(model);
@@ -43,7 +45,7 @@ namespace GamesAPI.Web.Controllers
         }
 
         [HttpPut("Game/{id}")]
-
+        [Authorize(Roles = ApplicationRoles.Admin)]
         public IActionResult Update(int id, GamesInputModel model)
         {
             bool exists = this.gamesService.ExistsAsync(id).Result;
@@ -59,7 +61,7 @@ namespace GamesAPI.Web.Controllers
         }
 
         [HttpDelete("Game/{id}")]
-
+        [Authorize(Roles = ApplicationRoles.Admin)]
         public async Task<IActionResult> Delete(int id) 
         {
             bool exist = this.gamesService.ExistsAsync(id).Result;

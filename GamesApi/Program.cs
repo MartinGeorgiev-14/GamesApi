@@ -12,6 +12,7 @@ using GamesAPI.Services.Authorization;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using GamesAPI.Services.Seeding;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,23 +75,37 @@ builder.Services.AddTransient<IGamesService, GamesService>();
 builder.Services.AddTransient<IGenreService, GenreService>();
 builder.Services.AddTransient<IPlatformService, PlatformService>();
 builder.Services.AddTransient<IPublisherService, PublisherService>();
-builder.Services.AddTransient<IYearService, YearService>();
+builder.Services.AddTransient<IRoleSeeder, RoleSeeder>();
 builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
+builder.Services.AddTransient<IGamesCSVSeeder, GamesCSVSeeder>();
+
+
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
-
 
 var app = builder.Build();
 
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var gameSeeder = scope.ServiceProvider.GetRequiredService<IGamesCSVSeeder>();
+
+    await gameSeeder.SeedAsync();
+
+    var roleSeeder = scope.ServiceProvider.GetRequiredService<IRoleSeeder>();
+
+    await roleSeeder.SeedAsync();
 }
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

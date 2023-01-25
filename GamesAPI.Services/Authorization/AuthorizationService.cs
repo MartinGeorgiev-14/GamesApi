@@ -43,6 +43,25 @@ namespace GamesAPI.Services.Authorization
             return result;
         }
 
+        public async Task<IdentityResult?> RegisterAdminAsync(string username, string password)
+        {
+            var admin = new ApplicationUser
+            {
+                UserName = username,
+            };
+
+            var result = await this.userManager.CreateAsync(admin, password);
+
+            if (!result.Succeeded)
+            {
+                return result;
+            }
+
+            await this.userManager.AddToRoleAsync(admin, ApplicationRoles.Admin);
+
+            return result;
+        }
+
         public async Task<string?> LoginAsync(string username, string password)
         {
             var user = await this.userManager.FindByNameAsync(username);

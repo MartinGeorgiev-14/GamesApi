@@ -1,8 +1,11 @@
-﻿using GamesAPI.Services.Games.IService;
+﻿using GamesApi.Common;
+using GamesAPI.Services.Games.IService;
 using GamesAPI.Web.Models.Input;
 using GamesAPI.Web.Models.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace GamesAPI.Web.Controllers
 {
@@ -33,7 +36,7 @@ namespace GamesAPI.Web.Controllers
         }
 
         [HttpPost]
-
+        [Authorize(Roles = ApplicationRoles.Admin)]
         public IActionResult Create(PublisherInputModel model)
         {
             var id = this.publisherService.Create(model);
@@ -41,7 +44,7 @@ namespace GamesAPI.Web.Controllers
         }
 
         [HttpPut("{id}")]
-
+        [Authorize(Roles = ApplicationRoles.Admin)]
         public IActionResult Update(int id, PublisherInputModel model)
         {
             bool exists = this.publisherService.ExistsAsync(id).Result;
@@ -57,7 +60,7 @@ namespace GamesAPI.Web.Controllers
         }
 
         [HttpDelete("{id}")]
-
+        [Authorize(Roles = ApplicationRoles.Admin)]
         public async Task<IActionResult> Delete(int id)
         {
             bool exist = this.publisherService.ExistsAsync(id).Result;
